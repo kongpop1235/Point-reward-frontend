@@ -1,0 +1,29 @@
+{
+    "auth": {
+        "welcome": "ยินดีต้อนรับ",
+        "login": "เข้าสู่ระบบ",
+        "logout": "ออกจากระบบ",
+        "signup": "ลงทะเบียน",
+        "registration_success": "ลงทะเบียนสำเร็จ! กรุณาเข้าสู่ระบบ",
+        "registration_failed": "ลงทะเบียนไม่สำเร็จ",
+        "invalid_credentials": "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"
+    },
+    "forms": {
+        "username": "ชื่อผู้ใช้",
+        "password": "รหัสผ่าน",
+        "name": "ชื่อ",
+        "submit": "ส่ง",
+        "enter_username": "กรอกชื่อผู้ใช้ของคุณ",
+        "enter_password": "กรอกรหัสผ่านของคุณ",
+        "enter_name": "กรอกชื่อของคุณ"
+    },
+    "buttons": {
+        "login": "เข้าสู่ระบบ",
+        "signup": "ลงทะเบียน",
+        "submit": "ส่ง"
+    },
+    "errors": {
+        "username_exists": "ชื่อผู้ใช้นี้มีอยู่แล้ว",
+        "unknown_error": "เกิดข้อผิดพลาดที่ไม่รู้จัก กรุณาลองอีกครั้ง"
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "auth": {
+        "welcome": "Welcome",
+        "login": "Login",
+        "logout": "Logout",
+        "signup": "Sign Up",
+        "registration_success": "Registration successful! Please login.",
+        "registration_failed": "Registration failed",
+        "invalid_credentials": "Invalid username or password"
+    },
+    "forms": {
+        "login_text": "Welcome back",
+        "signup_text": "Come join us!",
+        "username": "Username",
+        "password": "Password",
+        "name": "Name",
+        "submit": "Submit",
+        "enter_username": "Enter your username",
+        "enter_password": "Enter your password",
+        "enter_name": "Enter your name"
+    },
+    "buttons": {
+        "login": "Login",
+        "signup": "Sign Up",
+        "submit": "Submit"
+    },
+    "errors": {
+        "username_exists": "Username already exists",
+        "unknown_error": "An unknown error occurred. Please try again."
+    }
+}
