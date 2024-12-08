@@ -22,12 +22,19 @@
             required
           />
           <!-- Icon Show/hide password -->
-          <img
-            :src="isPasswordVisible ? eyeIcon : eyeOffIcon"
-            alt="toggle password visibility"
+          <div 
             class="absolute top-2 right-3 w-6 h-6 cursor-pointer"
             @click="togglePasswordVisibility"
-          />
+          >
+            <eyeIcon 
+              v-if="isPasswordVisible" 
+              class="w-6 h-6 transition-all duration-300 text-white group-hover:translate-y-[-10px]"
+            />
+            <eyeOffIcon 
+              v-else 
+              class="w-6 h-6 transition-all duration-300 text-white group-hover:translate-y-[-10px]"
+            />
+          </div>
         </div>
       </div>
       <div class="mb-4">
@@ -91,7 +98,7 @@ const handleSignUp = async () => {
       signupName.value = ''
       const tokenCookie = useCookie('auth_token')
       tokenCookie.value = response.token
-      router.push('/dashboard')
+      router.push('/home')
     }
   } catch (error) {
     alert(error?.data?.message || 'Registration failed')

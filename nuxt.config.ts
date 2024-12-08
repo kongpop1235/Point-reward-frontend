@@ -28,4 +28,7 @@ export default defineNuxtConfig({
     router: {
         middleware: ['auth'],
     },
+    vite: {
+        plugins: [require('vite-svg-loader')()],
+    },
 })

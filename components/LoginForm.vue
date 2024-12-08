@@ -21,12 +21,19 @@
             class="w-full border rounded p-2 bg-darkGray text-white"
             required
           />
-          <img
-            :src="isPasswordVisible ? eyeIcon : eyeOffIcon"
-            alt="toggle password visibility"
-            class="absolute top-2 right-3 w-6 h-6 cursor-pointer "
+          <div 
+            class="absolute top-2 right-3 w-6 h-6 cursor-pointer"
             @click="togglePasswordVisibility"
-          />
+          >
+            <eyeIcon 
+              v-if="isPasswordVisible" 
+              class="w-6 h-6 transition-all duration-300 text-white group-hover:translate-y-[-10px]"
+            />
+            <eyeOffIcon 
+              v-else 
+              class="w-6 h-6 transition-all duration-300 text-white group-hover:translate-y-[-10px]"
+            />
+          </div>
         </div>
       </div>
       <div class="w-full text-center">
@@ -45,6 +52,9 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCookie } from '#app'
+import homeIcon from '@/assets/icon/home.svg'
+import eyeIcon from '@/assets/icon/eye.svg'
+import eyeOffIcon from '@/assets/icon/eye-off.svg'
 
 // State for login
 const loginUsername = ref('')
@@ -53,8 +63,6 @@ const router = useRouter()
 
 // State For managing showing/hiding passwords
 const isPasswordVisible = ref(false)
-import eyeIcon from '@/assets/icon/eye.svg'
-import eyeOffIcon from '@/assets/icon/eye-off.svg'
 
 // Toggle function for displaying passwords
 const togglePasswordVisibility = () => {
@@ -74,7 +82,7 @@ const handleLogin = async () => {
       
       const tokenCookie = useCookie('auth_token')
       tokenCookie.value = response.token
-      router.push('/dashboard')
+      router.push('/home')
     }
   } catch (error) {
     console.error('Error:', error)
