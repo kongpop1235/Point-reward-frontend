@@ -62,13 +62,13 @@
         style="width: 200%;"
       >
         <!-- Login -->
-        <div class="w-full md:w-1/2 px-6 overflow-auto">
+        <div class="w-full md:w-1/2 max-md:px-6 md:pr-8 overflow-auto">
           <h1 v-if="!isMobile" class="text-2xl font-bold text-center mb-6">{{ $t('auth.login') }}</h1>
           <LoginForm />
         </div>
 
         <!-- Sign Up -->
-        <div class="w-full md:w-1/2 px-6 overflow-auto">
+        <div class="w-full md:w-1/2 max-md:px-6 md:pl-8 overflow-auto">
           <h1 v-if="!isMobile" class="text-2xl font-bold text-center mb-6">{{ $t('auth.signup') }}</h1>
           <SignUpForm />
         </div>
