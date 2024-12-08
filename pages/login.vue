@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-darkerGray">
+  <div class="flex items-center justify-center min-h-screen">
     <!-- Container -->
     <div 
       class="relative w-full max-w-sm md:max-w-4xl bg-darkGray py-6 md:p-8 rounded-md overflow-hidden flex flex-col md:flex-row"

@@ -17,6 +17,13 @@
         "enter_password": "กรอกรหัสผ่านของคุณ",
         "enter_name": "กรอกชื่อของคุณ"
     },
+    "profile": {
+        "username": "ชื่อผู้ใช้",
+        "points": "คะแนน",
+        "Role": "บทบาท",
+        "redeemedItems": "รายการที่แลกแล้ว",
+        "pcs": "ชิ้น"
+    },
     "buttons": {
         "login": "เข้าสู่ระบบ",
         "signup": "ลงทะเบียน",

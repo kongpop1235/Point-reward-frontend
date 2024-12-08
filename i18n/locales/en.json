@@ -19,6 +19,13 @@
         "enter_password": "Enter your password",
         "enter_name": "Enter your name"
     },
+    "profile": {
+        "username": "Username",
+        "points": "Points",
+        "Role": "Role",
+        "redeemedItems": "Redeemed Items",
+        "pcs": "pcs"
+    },
     "buttons": {
         "login": "Login",
         "signup": "Sign Up",
