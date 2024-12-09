@@ -1,47 +1,50 @@
 <template>
-  <div v-if="product" class="h-auto mx-10 md:m-0 md:w-1/2 p-5 bg-darkGray rounded-lg shadow-md">
-    <img 
-      :src="product.imageUrl" 
-      :alt="product.title" 
-      class="w-full h-64 object-cover rounded-md mb-5"
-    />
+  <div class="h-auto mx-10 md:m-0 md:w-1/2 p-5 bg-darkGray rounded-lg shadow-md">
+    <div v-if="product">
+      <img 
+        :src="product.imageUrl" 
+        :alt="product.title" 
+        class="w-full h-64 object-contain rounded-md mb-5"
+      />
 
-    <div class="text-left">
-      <h2 class="text-2xl font-bold mb-2">{{ product.title }}</h2>
-      <p class="text-gray-300 mb-4">{{ product.description }}</p>
+      <div class="text-left">
+        <h2 class="text-2xl font-bold mb-2">{{ product.title }}</h2>
+        <p class="text-gray-300 mb-4">{{ product.description }}</p>
+      </div>
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-primary font-semibold text-lg">
+          {{ product.pointsRequired }} Point
+        </span>
+        <span class="text-gray-400 text-sm">
+          Expiry Date : {{ formattedExpiryDate }}
+        </span>
+      </div>
+
+      <button 
+        @click="openConfirmationModal"
+        :disabled="!canRedeem"
+        class="w-full bg-primary text-white py-3 rounded-md hover:bg-red-500 transition-colors duration-300"
+        :class="!canRedeem ? 'opacity-50 cursor-not-allowed' : ''"
+      >
+        {{ hasRedeemed ? "Already Redeemed" : "Redeem" }}
+      </button>
     </div>
-    <div class="flex items-center justify-between mb-4">
-      <span class="text-primary font-semibold text-lg">
-        {{ product.pointsRequired }} {{ $t('points') }}
-      </span>
-      <span class="text-gray-400 text-sm">
-        {{ $t('expiryDate') }}: {{ formattedExpiryDate }}
-      </span>
+
+    <div v-else class="p-5">
+      <p class="text-white">Product Not Found</p>
     </div>
 
-    <button 
-      @click="openConfirmationModal"
-      :disabled="!canRedeem"
-      class="w-full bg-primary text-white py-3 rounded-md hover:bg-red-500 transition-colors duration-300"
-      :class="!canRedeem ? 'opacity-50 cursor-not-allowed' : ''"
-    >
-      {{ hasRedeemed ? $t('Already Redeemed') : $t('Redeem') }}
-    </button>
+    <!-- Confirmation Modal -->
+    <transition name="fade">
+      <ConfirmationModal 
+        v-if="isModalOpen" 
+        title="Confirm Redemption" 
+        message="Are you sure you want to redeem this product?" 
+        @confirm="redeemProduct"
+        @cancel="closeConfirmationModal"
+      />
+    </transition>
   </div>
-
-  <div v-else class="p-5">
-    <p class="text-white">{{ $t('productNotFound') }}</p>
-  </div>
-  
-  <transition name="fade">
-    <ConfirmationModal 
-      v-if="isModalOpen" 
-      :title="$t('Confirm Redemption')" 
-      :message="$t('Are you sure you want to redeem this product?')" 
-      @confirm="redeemProduct"
-      @cancel="closeConfirmationModal"
-    />
-  </transition>
 </template>
 
 <script setup>
@@ -64,7 +67,7 @@ const product = ref(null)
 const isModalOpen = ref(false)
 
 const findProductById = () => {
-  product.value = productsStore.products.find((item) => item._id === props.productId)
+  product.value = productsStore.products.find((item) => item.id === props.productId)
 }
 
 onMounted(() => {
@@ -102,6 +105,8 @@ const redeemProduct = async () => {
     console.log('🎉 Redeem successful:', response)
     alert('Redeem successful! 🎉')
 
+    profileStore.setPoints(profileStore.profile.points - product.value.pointsRequired)
+
     await profileStore.fetchProfile()
   } catch (error) {
     console.error('❌ Redeem failed:', error)
@@ -124,7 +129,7 @@ const formattedExpiryDate = computed(() => {
 const hasRedeemed = computed(() => {
   if (!profileStore.profile || !product.value) return false
   return profileStore.profile.redeemedItems.some(
-    (item) => item.productId === product.value._id
+    (item) => item.productId === product.value.id || item.productId === product.value._id
   )
 })
 
@@ -138,13 +143,6 @@ const canRedeem = computed(() => hasEnoughPoints.value && !hasRedeemed.value)
 </script>
 
 <style scoped>
-img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
 button {
   font-size: 16px;
   font-weight: bold;

@@ -29,12 +29,18 @@ export const useProfileStore = defineStore('profile', {
 
     clearProfile() {
       this.profile = null
+    },
+
+    setPoints(points) {
+      if (this.profile) {
+        this.profile.points = points
+      }
     }
   },
 
   getters: {
     getFullName: (state) => state.profile ? `${state.profile.name}` : '',
     getPoints: (state) => state.profile ? state.profile.points : 0,
-    isAuthenticated: (state) => !!state.profile // If you have a profile, it means you're already logged in.
+    isAuthenticated: (state) => !!state.profile
   }
 })

@@ -15,14 +15,14 @@
             @click="$emit('cancel')" 
             class="bg-gray-600 text-white py-2 px-4 rounded-md hover:bg-red-600 transition-colors duration-300"
           >
-            {{ $t('Cancel') }}
+            Cancel
           </button>
           
           <button 
             @click="$emit('confirm')" 
             class="bg-primary text-white py-2 px-4 rounded-md hover:bg-green-600 transition-colors duration-300"
           >
-            {{ $t('Confirm') }}
+            Confirm
           </button>
         </div>
       </div>

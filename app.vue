@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtPage class="pb-[60px]"/>
+    <NuxtPage class="mb-[80px]"/>
     <BottomNavbar />
   </div>
 </template>

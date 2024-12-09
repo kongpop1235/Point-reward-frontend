@@ -71,17 +71,23 @@ const togglePasswordVisibility = () => {
 
 // Login management function
 const handleLogin = async () => {
-  
   try {
     const response = await $fetch('/users/login', {
       baseURL: useRuntimeConfig().public.apiBase,
       method: 'POST',
       body: { username: loginUsername.value, password: loginPassword.value },
     })
+
     if (response.token) {
-      
-      const tokenCookie = useCookie('auth_token')
+      const tokenCookie = useCookie('auth_token', { 
+        maxAge: 3600,
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: false
+      })
+
       tokenCookie.value = response.token
+
       router.push('/home')
     }
   } catch (error) {
