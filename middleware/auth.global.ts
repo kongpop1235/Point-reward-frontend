@@ -1,5 +1,6 @@
 import { useProfileStore } from '@/store/profile'
 import { useCookie } from '#app'
+import { useAdvertisedProductsStore } from '@/store/advertisedProducts'
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
     const token = useCookie('auth_token').value
@@ -21,6 +22,15 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
                 console.error('Failed to fetch profile:', error)
                 useCookie('auth_token').value = null
                 return navigateTo('/login')
+            }
+        }
+
+        const advertisedProductsStore = useAdvertisedProductsStore()
+        if (!advertisedProductsStore.products.length) {
+            try {
+                await advertisedProductsStore.fetchAdvertisedProducts()
+            } catch (error) {
+                console.error('Failed to fetch advertised products:', error)
             }
         }
     }

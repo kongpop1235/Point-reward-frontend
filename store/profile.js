@@ -18,6 +18,7 @@ export const useProfileStore = defineStore('profile', {
         this.profile = response
       } catch (error) {
         console.error('Error fetching profile:', error)
+        useCookie('auth_token').value = null
         throw error
       }
     },
@@ -33,6 +34,7 @@ export const useProfileStore = defineStore('profile', {
 
   getters: {
     getFullName: (state) => state.profile ? `${state.profile.name}` : '',
+    getPoints: (state) => state.profile ? state.profile.points : 0,
     isAuthenticated: (state) => !!state.profile // If you have a profile, it means you're already logged in.
   }
 })

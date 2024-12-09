@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-darkerGray">
+  <div>
     <NuxtPage class="pb-[60px]"/>
     <BottomNavbar />
   </div>
