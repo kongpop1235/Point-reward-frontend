@@ -93,11 +93,10 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useProductsStore } from '@/store/products'
 import { useProfileStore } from '@/store/profile'
-import { useCookie } from '#app'
 import GridIcon from '@/assets/icon/grid.svg'
 import ListIcon from '@/assets/icon/list.svg'
 import PointIcon from '@/assets/icon/point-coin.svg'
@@ -130,25 +129,6 @@ const closeProductDetail = () => {
   selectedProductId.value = null
 }
 
-const token = useCookie('auth_token').value
-if (token && !profileStore.profile) {
-  try {
-    await profileStore.fetchProfile()
-  } catch (error) {
-    console.error('Error loading profile:', error)
-    useCookie('auth_token').value = null
-  }
-}
-onMounted(async() => {
-  if (token && !productsStore.products.length) {
-    try {
-      await productsStore.fetchProducts()
-    } catch (error) {
-      console.error('Error loading products:', error)
-      useCookie('auth_token').value = null
-    }
-  }
-})
 </script>
 
 <style scoped>

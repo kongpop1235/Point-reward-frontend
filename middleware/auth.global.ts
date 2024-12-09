@@ -1,6 +1,7 @@
 import { useProfileStore } from '@/store/profile'
 import { useCookie } from '#app'
 import { useAdvertisedProductsStore } from '@/store/advertisedProducts'
+import { useProductsStore } from '@/store/products'
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
     const token = useCookie('auth_token').value
@@ -29,6 +30,15 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         if (!advertisedProductsStore.products.length) {
             try {
                 await advertisedProductsStore.fetchAdvertisedProducts()
+            } catch (error) {
+                console.error('Failed to fetch advertised products:', error)
+            }
+        }
+
+        const productStore = useProductsStore()
+        if (!productStore.products.length) {
+            try {
+                await productStore.fetchProducts()
             } catch (error) {
                 console.error('Failed to fetch advertised products:', error)
             }
