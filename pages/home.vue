@@ -8,7 +8,7 @@
           ref="swiperRef"
           class="mySwiper" 
           :parallax="true" 
-          :speed="600" 
+          :speed="1000" 
           :autoplay="{ delay: 3000 }"
           effect="slide"
           :loop="true" 
@@ -26,9 +26,9 @@
               :style="{ 'background-image': `url(${product.imageUrl})` }" 
               data-swiper-parallax="-50%"
             ></div>
-            <div class="content absolute bottom-4 left-4 text-white">
-              <h2 class="text-2xl font-bold" v-if="product.title" data-swiper-parallax="-100">{{ product.title }}</h2>
-              <p class="mt-2" v-if="product.description" data-swiper-parallax="-200">{{ product.description }}</p>
+            <div class="content absolute bottom-10 left-10 text-start text-white">
+              <h2 class="text-2xl font-bold" v-if="product.title" data-swiper-parallax="-200">{{ product.title }}</h2>
+              <p class="mt-2" v-if="product.description" data-swiper-parallax="-300">{{ product.description }}</p>
             </div>
           </swiper-slide>
         </swiper>
@@ -61,13 +61,6 @@
           <ProductList />
         </div>
       </div>
-
-      <button
-        @click="handleLogout"
-        class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-      >
-        {{ $t('auth.logout') }}
-      </button>
     </div>
   </div>
 </template>
@@ -84,7 +77,7 @@ import ProductDetail from '@/components/ProductDetail.vue'
 
 //import Swiper
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination, Scrollbar, Autoplay, A11y } from 'swiper/modules'
+import { Navigation, Pagination, Scrollbar, Autoplay, A11y, Parallax } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -137,14 +130,7 @@ const closeProductDetail = () => {
   selectedProductId.value = null
 }
 
-const handleLogout = () => {
-  const tokenCookie = useCookie('auth_token')
-  tokenCookie.value = null
-  profileStore.clearProfile()
-  router.push('/login')
-}
-
-const modules = [Navigation, Pagination, Scrollbar, Autoplay, A11y]
+const modules = [Navigation, Pagination, Scrollbar, Autoplay, A11y, Parallax]
 </script>
 
 <style scoped>
