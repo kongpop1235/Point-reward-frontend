@@ -15,6 +15,10 @@ export default {
         darkGray: '#292929',
         darkerGray: '#202020',
       },
+      fontFamily: {
+        prompt: ['Prompt', 'sans-serif'],
+        suse: ['SUSE', 'sans-serif']
+      },
     },
   },
   plugins: [],
