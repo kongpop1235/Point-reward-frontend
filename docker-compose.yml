@@ -1,16 +1,12 @@
 version: '3.8'
 
 services:
-    nuxt-app:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        container_name: nuxt-app
-        ports:
-            - '3000:3000' # เข้าถึงเว็บผ่าน http://localhost:3000
-        environment:
-            - NODE_ENV=production
-        volumes:
-            - .:/app
-            - /app/node_modules
-        command: ['npm', 'run', 'preview']
+  nuxt-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nuxt-app
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production

@@ -41,7 +41,7 @@
       </div>
 
       <div v-else class="text-center text-gray-400">
-        {{ $t('No Redeemed Products') }}
+        No Redeemed Products
       </div>
     </div>
   </div>
