@@ -21,7 +21,8 @@ export default defineNuxtConfig({
     },
     runtimeConfig: {
         public: {
-            apiBase: 'http://localhost:5000/api',
+            apiBase: 'https://point-reward-backend.vercel.app/api',
+            // apiBase: 'http://localhost:5000/api',
         },
     },
     router: {

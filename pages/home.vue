@@ -22,13 +22,18 @@
             @click="openProductDetail(product.productId)"
           >
             <div 
-              class="parallax-bg" 
-              :style="{ 'background-image': `url(${product.imageUrl})` }" 
+              class="absolute inset-0 w-full h-full bg-center bg-no-repeat bg-contain bg-xl-to-2xl-cover"
+              :style="{ 'background-image': `url(${product.imageUrl})` }"
               data-swiper-parallax="-50%"
             ></div>
+
             <div class="content absolute bottom-10 left-10 text-start text-white">
-              <h2 class="text-2xl font-bold" v-if="product.title" data-swiper-parallax="-200">{{ product.title }}</h2>
-              <p class="mt-2" v-if="product.description" data-swiper-parallax="-300">{{ product.description }}</p>
+              <h2 class="text-2xl font-bold" v-if="product.title" data-swiper-parallax="-200">
+                {{ product.title }}
+              </h2>
+              <p class="mt-2" v-if="product.description" data-swiper-parallax="-300">
+                {{ product.description }}
+              </p>
             </div>
           </swiper-slide>
         </swiper>
@@ -150,14 +155,10 @@ const modules = [Navigation, Pagination, Scrollbar, Autoplay, A11y, Parallax]
   cursor: pointer;
 }
 
-.parallax-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
+@media (min-width: 800px) and (max-width: 1600px) {
+  .bg-xl-to-2xl-cover {
+    background-size: cover;
+  }
 }
 
 .content {
