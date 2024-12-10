@@ -16,12 +16,10 @@
     <div>
       <div class="flex items-center justify-between my-5">
         <h2 class="text-xl font-bold">Redeemed Products</h2>
-        <button
+        <LogoutIcon
+          class="h-8 w-8 cursor-pointer text-red-600 hover:text-gray-600 transition-all duration-300"
           @click="handleLogout"
-          class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-        >
-          {{ $t('auth.logout') }}
-        </button>
+        />
       </div>
       <div v-if="redeemedProducts.length" class="space-y-4">
         <div 
@@ -60,6 +58,7 @@ const router = useRouter()
 // Import Icon
 import UserCircleIcon from '@/assets/icon/user-circle.svg'
 import PointIcon from '@/assets/icon/point-coin.svg'
+import LogoutIcon from '@/assets/icon/logout.svg'
 
 const profileStore = useProfileStore()
 const productsStore = useProductsStore()

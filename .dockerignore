@@ -1,0 +1,11 @@
+node_modules
+nuxt.config.ts
+.git
+.gitignore
+output
+dist
+.cache
+.DS_Store
+.nuxt
+.env
+*.log
