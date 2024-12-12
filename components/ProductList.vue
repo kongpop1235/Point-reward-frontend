@@ -30,6 +30,7 @@
 
       <!-- View Mode Toggle -->
       <div class="relative flex bg-darkGray rounded-lg w-[100px] h-[50px] items-center">
+        <!-- Background -->
         <div
           class="absolute bg-primary w-[40px] h-[40px] rounded-lg transition-all duration-300 top-1/2 -translate-y-1/2" 
           :class="viewMode === 'grid' ? 'left-[7px]' : 'left-[calc(100%-45px)]'"
@@ -92,20 +93,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Modal Product Detail -->
-    <transition name="fade">
-      <div 
-        v-if="selectedProductId" 
-        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-        @click.self="closeProductDetail"
-      >
-        <ProductDetail 
-          :productId="selectedProductId" 
-          @close="closeProductDetail"
-        />
-      </div>
-    </transition>
   </div>
 </template>
 
@@ -117,7 +104,6 @@ import { useProfileStore } from '@/store/profile'
 import GridIcon from '@/assets/icon/grid.svg'
 import ListIcon from '@/assets/icon/list.svg'
 import PointIcon from '@/assets/icon/point-coin.svg'
-import ProductDetail from '@/components/ProductDetail.vue'
 
 const route = useRoute()
 
@@ -161,9 +147,8 @@ const closeProductDetail = () => {
   bottom: 0;
 }
 
-.fade-enter-active, 
-.fade-leave-active {
-  transition: opacity 0.3s ease;
+input::placeholder {
+  color: #A0A0A0; 
 }
 
 .fade-enter-from, 
