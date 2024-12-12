@@ -15,13 +15,27 @@
         </div>
       </div>
 
+      <!-- Search Bar -->
+      <div 
+        v-if="route.path === '/reward'" 
+        class="flex-1 px-5"
+      >
+        <input 
+          v-model="searchQuery" 
+          type="text" 
+          placeholder="Search for a product..." 
+          class="w-full h-[50px] rounded-lg bg-darkGray px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+      </div>
+
+      <!-- View Mode Toggle -->
       <div class="relative flex bg-darkGray rounded-lg w-[100px] h-[50px] items-center">
         <div
           class="absolute bg-primary w-[40px] h-[40px] rounded-lg transition-all duration-300 top-1/2 -translate-y-1/2" 
           :class="viewMode === 'grid' ? 'left-[7px]' : 'left-[calc(100%-45px)]'"
         ></div>
 
-        <!-- button Icon Grid -->
+        <!-- Grid View Button -->
         <button 
           @click="setGridView"
           class="w-1/2 flex justify-center items-center relative z-10 text-white"
@@ -29,7 +43,7 @@
           <GridIcon class="w-6 h-6"/>
         </button>
 
-        <!-- button Icon List -->
+        <!-- List View Button -->
         <button 
           @click="setListView"
           class="w-1/2 flex justify-center items-center relative z-10 text-white"
@@ -39,22 +53,26 @@
       </div>
     </div>
 
+    <!-- Product List -->
     <div 
       :class="viewMode === 'grid' ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5' : 'flex flex-col space-y-5'"
     >
       <div 
-        v-for="product in products" 
+        v-for="product in filteredProducts" 
         :key="product._id" 
         class="product-card p-5 bg-darkGray rounded-md shadow-md relative overflow-hidden"
         :class="viewMode === 'list' ? 'flex flex-row items-center justify-between gap-4' : 'flex flex-col items-center'"
         @click="openProductDetail(product.id)"
       >
+        <!-- Product Image -->
         <img 
           :src="product.imageUrl" 
           :alt="product.title" 
           class="object-contain md:object-cover rounded-md flex-shrink-0"
           :class="viewMode === 'grid' ? 'w-60 h-60 max-sm:scale-150' : 'w-24 h-24 md:w-40 md:h-40'"
         />
+
+        <!-- Product Details -->
         <div 
           class="flex-1 text-left gap-y-3 h-full w-full flex flex-col"
           :class="viewMode === 'grid' ? 'p-5' : 'lg:ml-10'"
@@ -65,15 +83,14 @@
             {{ product.pointsRequired }} Points
           </p>
         </div>
-      
-        <!-- Red layer that moves up when hover -->
+
+        <!-- Hover Effect -->
         <div 
           class="max-md:hidden absolute cursor-pointer bottom-[-100%] left-0 w-full h-full bg-red-600 flex items-center justify-center transition-all duration-300 product-overlay"
         >
           <p class="text-white text-3xl font-semibold tracking-widest uppercase">Detail</p>
         </div>
       </div>
-
     </div>
 
     <!-- Modal Product Detail -->
@@ -111,8 +128,17 @@ const profileStore = useProfileStore()
 const points = computed(() => profileStore.profile?.points ?? 0)
 
 const viewMode = ref('grid')
-
+const searchQuery = ref('')
 const selectedProductId = ref(null)
+
+// Filtered products based on search query
+const filteredProducts = computed(() => {
+  if (!searchQuery.value) return products
+  return products.filter(product => 
+    product.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+})
+
 const setGridView = () => {
   viewMode.value = 'grid'
 }
@@ -128,16 +154,9 @@ const openProductDetail = (productId) => {
 const closeProductDetail = () => {
   selectedProductId.value = null
 }
-
 </script>
 
 <style scoped>
-
-.list {
-  display: flex;
-  flex-direction: column;
-}
-
 .product-card:hover .product-overlay {
   bottom: 0;
 }
@@ -150,5 +169,9 @@ const closeProductDetail = () => {
 .fade-enter-from, 
 .fade-leave-to {
   opacity: 0;
+}
+
+input[type="text"] {
+  transition: border-color 0.2s ease-in-out;
 }
 </style>
