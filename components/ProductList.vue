@@ -93,6 +93,22 @@
         </div>
       </div>
     </div>
+
+    
+    <!-- Modal Product Detail -->
+    <transition name="fade">
+      <div 
+        v-if="selectedProductId" 
+        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+        @click.self="closeProductDetail"
+      >
+        <ProductDetail 
+          :productId="selectedProductId" 
+          @close="closeProductDetail"
+        />
+      </div>
+    </transition>
+
   </div>
 </template>
 
@@ -104,6 +120,7 @@ import { useProfileStore } from '@/store/profile'
 import GridIcon from '@/assets/icon/grid.svg'
 import ListIcon from '@/assets/icon/list.svg'
 import PointIcon from '@/assets/icon/point-coin.svg'
+import ProductDetail from '@/components/ProductDetail.vue'
 
 const route = useRoute()
 
@@ -158,5 +175,10 @@ input::placeholder {
 
 input[type="text"] {
   transition: border-color 0.2s ease-in-out;
+}
+
+.fade-enter-active, 
+.fade-leave-active {
+  transition: opacity 0.3s ease;
 }
 </style>
