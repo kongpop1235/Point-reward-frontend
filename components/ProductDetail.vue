@@ -22,11 +22,11 @@
 
       <button 
         @click="openConfirmationModal"
-        :disabled="!canRedeem"
+        :disabled="!canRedeem || isRedeeming"
         class="w-full bg-primary text-white py-3 rounded-md hover:bg-red-500 transition-colors duration-300"
-        :class="!canRedeem ? 'opacity-50 cursor-not-allowed' : ''"
+        :class="!canRedeem || isRedeeming ? 'opacity-50 cursor-not-allowed' : ''"
       >
-        {{ hasRedeemed ? "Already Redeemed" : "Redeem" }}
+        {{ isRedeeming ? "Processing..." : hasRedeemed ? "Already Redeemed" : "Redeem" }}
       </button>
     </div>
 
@@ -65,6 +65,7 @@ const profileStore = useProfileStore()
 
 const product = ref(null)
 const isModalOpen = ref(false)
+const isRedeeming = ref(false)
 
 const findProductById = () => {
   product.value = productsStore.products.find((item) => item.id === props.productId)
@@ -91,8 +92,10 @@ const closeConfirmationModal = () => {
 }
 
 const redeemProduct = async () => {
-  if (!product.value) return
+  if (!product.value || isRedeeming.value) return
+  closeConfirmationModal()
 
+  isRedeeming.value = true
   try {
     const response = await $fetch('/products/redeem', {
       baseURL: useRuntimeConfig().public.apiBase,
@@ -112,7 +115,7 @@ const redeemProduct = async () => {
     console.error('❌ Redeem failed:', error)
     alert('Failed to redeem the product. Please try again later.')
   } finally {
-    closeConfirmationModal()
+    isRedeeming.value = false
   }
 }
 
@@ -132,7 +135,6 @@ const hasRedeemed = computed(() => {
     (item) => item.productId === product.value.id || item.productId === product.value._id
   )
 })
-
 
 const hasEnoughPoints = computed(() => {
   if (!profileStore.profile || !product.value) return false
